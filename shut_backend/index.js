@@ -20,10 +20,14 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // MongoDB connection
-mongoose.connect(process.env.mongodb_url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.mongodb_url)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1); // Exit if the connection fails
+  });
+
+
 
 // User Schema with Shutdown State
 const User = mongoose.model('User', new mongoose.Schema({
@@ -105,6 +109,6 @@ app.get('/get-shutdown/:uniqueId', async (req, res) => {
 });
 
 // Start the Server
-// app.listen(5000, () => {
-//   console.log('Server running on http://192.168.137.8:5000');
-// });
+app.listen(5000, () => {
+  console.log('Server running on http://192.168.137.8:5000');
+});
