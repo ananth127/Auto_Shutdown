@@ -15,7 +15,7 @@ const app = express();
 //   allowedHeaders: ['Content-Type', 'Authorization'],
 // }));
 
-app.options('*', cors()); // Handle preflight requests for all routes
+app.use(cors()); // Handle preflight requests for all routes
 
 
 // Middleware
