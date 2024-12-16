@@ -6,15 +6,17 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
-
 const app = express();
 
 // Enable CORS for all routes
-app.use(cors({
-  origin: 'https://auto-shutdown-zgsd.vercel.app/',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+// app.use(cors({
+//   origin: 'https://auto-shutdown-zgsd.vercel.app/',
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+// }));
+
+app.options('*', cors()); // Handle preflight requests for all routes
+
 
 // Middleware
 app.use(bodyParser.json());
