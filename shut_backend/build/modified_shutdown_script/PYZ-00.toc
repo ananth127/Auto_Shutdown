@@ -1,5 +1,5 @@
-('E:\\placement\\react project\\pc '
- 'shutdown\\backend\\build\\modified_shutdown_script\\PYZ-00.pyz',
+('E:\\placement\\react project\\pc shutdown\\version '
+ '1\\shut_backend\\build\\modified_shutdown_script\\PYZ-00.pyz',
  [('__future__',
    'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\__future__.py',
    'PYMODULE'),

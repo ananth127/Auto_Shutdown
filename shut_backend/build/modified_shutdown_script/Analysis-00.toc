@@ -1,6 +1,6 @@
-(['E:\\placement\\react project\\pc '
-  'shutdown\\backend\\modified_shutdown_script.py'],
- ['E:\\placement\\react project\\pc shutdown\\backend'],
+(['E:\\placement\\react project\\pc shutdown\\version '
+  '1\\shut_backend\\modified_shutdown_script.py'],
+ ['E:\\placement\\react project\\pc shutdown\\version 1\\shut_backend'],
  [],
  [('C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\numpy\\_pyinstaller',
    0),
@@ -22,8 +22,8 @@
    'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
    'PYSOURCE'),
   ('modified_shutdown_script',
-   'E:\\placement\\react project\\pc '
-   'shutdown\\backend\\modified_shutdown_script.py',
+   'E:\\placement\\react project\\pc shutdown\\version '
+   '1\\shut_backend\\modified_shutdown_script.py',
    'PYSOURCE')],
  [('inspect',
    'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\inspect.py',
@@ -319,14 +319,14 @@
   ('ast',
    'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\ast.py',
    'PYMODULE'),
+  ('stringprep',
+   'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\stringprep.py',
+   'PYMODULE'),
   ('tracemalloc',
    'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\tracemalloc.py',
    'PYMODULE'),
   ('_py_abc',
    'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\_py_abc.py',
-   'PYMODULE'),
-  ('stringprep',
-   'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\stringprep.py',
    'PYMODULE'),
   ('requests',
    'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\requests\\__init__.py',
@@ -652,8 +652,8 @@
  [],
  [],
  [('base_library.zip',
-   'E:\\placement\\react project\\pc '
-   'shutdown\\backend\\build\\modified_shutdown_script\\base_library.zip',
+   'E:\\placement\\react project\\pc shutdown\\version '
+   '1\\shut_backend\\build\\modified_shutdown_script\\base_library.zip',
    'DATA'),
   ('certifi\\py.typed',
    'C:\\Users\\anant\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\certifi\\py.typed',

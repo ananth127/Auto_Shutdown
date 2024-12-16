@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['E:\\placement\\react project\\pc shutdown\\backend\\modified_shutdown_script.py'],
+    ['E:\\placement\\react project\\pc shutdown\\version 1\\shut_backend\\modified_shutdown_script.py'],
     pathex=[],
     binaries=[],
     datas=[],

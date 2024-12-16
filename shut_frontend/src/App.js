@@ -28,6 +28,15 @@ function App() {
     }
   };
 
+  const generateExecutable = async () => {
+    try {
+      await axios.post('https://auto-shutdown-alpha.vercel.app/generate', { uniqueId });
+      alert('Executable generated successfully');
+    } catch (error) {
+      alert('Error generating executable');
+    }
+  };
+
   const toggleShutdown = async () => {
     try {
       const newShutdownState = !shutdown; // Toggle shutdown value
@@ -73,7 +82,13 @@ function App() {
           <button onClick={toggleShutdown}>
             {shutdown ? 'Turn OFF Shutdown' : 'Turn ON Shutdown'}
           </button>
+
+          <div>
+          <h2>Generate Executable</h2>
+          <button onClick={generateExecutable}>Generate .exe</button>
         </div>
+        </div>
+        
       )}
     </div>
   );
