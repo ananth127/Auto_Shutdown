@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shutdown Script Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Shutdown Script</h1>
+        <form id="userForm" method="POST" action="/create-user">
+            <button type="submit">Create User & Download Script</button>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+    <script>
+        const form = document.getElementById('userForm');
+        const messageDiv = document.getElementById('message');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            messageDiv.textContent = 'Processing...';
+            messageDiv.classList.remove('error');
+
+            try {
+                const response = await fetch('/create-user', {
+                    method: 'POST',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to generate script. Please try again.');
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'shutdown_script.exe';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                messageDiv.textContent = 'Executable downloaded successfully!';
+            } catch (error) {
+                messageDiv.textContent = error.message;
+                messageDiv.classList.add('error');
+            }
+        });
+    </script>
+</body>
+</html>

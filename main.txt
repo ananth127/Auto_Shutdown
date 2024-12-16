@@ -1,0 +1,122 @@
+import os
+import platform
+import requests
+import time
+
+# Node.js API URL to check the shutdown state
+NODE_API_URL = 'http://192.168.64.76:5000/get-shutdown?uniqueId={}'  # User ID will be passed here
+
+def check_shutdown(user_id):
+    print(f"Started listening for shutdown state for User ID: {user_id}...")  # Indication that the script is listening
+    
+    while True:
+        try:
+            print("Fetching shutdown state...")  # Indication that a fetch is occurring
+            
+            # Fetch the shutdown state from the Node.js API
+            response = requests.get(NODE_API_URL.format(user_id))
+            data = response.json()
+            shutdown_value = data.get('shutdown', False)
+
+            if shutdown_value:
+                system_platform = platform.system().lower()
+
+                if system_platform == 'windows':
+                    print("Shutdown state is ON. Shutting down Windows...")
+                    os.system("shutdown /s /f /t 0")  # For Windows
+                elif system_platform == 'linux' or system_platform == 'darwin':
+                    print("Shutdown state is ON. Shutting down Linux/macOS...")
+                    os.system("shutdown now")  # For Linux and macOS
+                else:
+                    print("Unsupported Operating System")
+            else:
+                print("Shutdown state is OFF. No action taken.")
+
+            time.sleep(10)  # Check every 10 seconds
+
+        except Exception as e:
+            print(f"Error: {str(e)}")
+            time.sleep(10)  # Retry after a brief pause
+
+if __name__ == '__main__':
+    # Placeholder for user ID, will be replaced by the unique ID when generating the exe
+    user_id = 'USER_ID_PLACEHOLDER'
+    check_shutdown(user_id)
+
+
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const { exec } = require('child_process');
+const path = require('path');
+const fs = require('fs');
+const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
+const app = express();
+
+// MongoDB connection setup
+mongoose.connect('mongodb://localhost:27017/shutdownApp', { useNewUrlParser: true, useUnifiedTopology: true });
+const User = mongoose.model('User', new mongoose.Schema({
+  uniqueId: { type: String, required: true, unique: true },
+  createdAt: { type: Date, default: Date.now },
+}));
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Route to serve the main HTML page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Route to handle user creation and .exe generation
+app.post('/create-user', async (req, res) => {
+  const uniqueId = uuidv4(); // Generate a unique ID for the user
+
+  try {
+    // Create a new user in the MongoDB database
+    const newUser = new User({ uniqueId });
+    await newUser.save();
+
+    console.log(`Created user with unique ID: ${uniqueId}`);
+
+    // Modify the Python script by inserting the unique user ID
+    const pythonScriptPath = path.join(__dirname, 'shutdown_script.py');
+    let pythonScriptContent = fs.readFileSync(pythonScriptPath, 'utf8');
+    pythonScriptContent = pythonScriptContent.replace('USER_ID_PLACEHOLDER', uniqueId);
+
+    // Save the modified Python script
+    const modifiedScriptPath = path.join(__dirname, 'modified_shutdown_script.py');
+    fs.writeFileSync(modifiedScriptPath, pythonScriptContent);
+
+    // Use PyInstaller to generate the .exe file
+    exec(`pyinstaller --onefile ${modifiedScriptPath}`, (err, stdout, stderr) => {
+      if (err) {
+        console.error(`Error: ${stderr}`);
+        return res.status(500).send('Error occurred while generating the executable.');
+      }
+
+      console.log(stdout);
+      console.log('Executable generated.');
+
+      // Send the .exe file to the user
+      const exePath = path.join(__dirname, 'dist', 'modified_shutdown_script.exe');
+      res.download(exePath, 'shutdown_script.exe', (err) => {
+        if (err) {
+          console.error(err);
+        }
+        // Clean up files after download (optional)
+        fs.rmSync(modifiedScriptPath);
+        fs.rmSync(exePath);
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error creating user or generating executable.');
+  }
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Server running on http://localhost:3000');
+});
