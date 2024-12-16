@@ -10,7 +10,7 @@ function App() {
 
   const register = async () => {
     try {
-      const res = await axios.post('http://192.168.137.8:5000/register', { username, password });
+      const res = await axios.post('https://auto-shutdown-alpha.vercel.app/register', { username, password });
       alert(`User registered successfully. Unique ID: ${res.data.uniqueId}`);
     } catch (error) {
       alert('Error registering user');
@@ -19,7 +19,7 @@ function App() {
 
   const login = async () => {
     try {
-      const res = await axios.post('http://192.168.137.8:5000/login', { username, password });
+      const res = await axios.post('https://auto-shutdown-alpha.vercel.app/login', { username, password });
       setUniqueId(res.data.uniqueId);
       setIsLoggedIn(true);
       alert('Login successful');
@@ -31,7 +31,7 @@ function App() {
   const toggleShutdown = async () => {
     try {
       const newShutdownState = !shutdown; // Toggle shutdown value
-      await axios.post('http://192.168.137.8:5000/toggle-shutdown', { uniqueId, shutdown: newShutdownState });
+      await axios.post('https://auto-shutdown-alpha.vercel.app/toggle-shutdown', { uniqueId, shutdown: newShutdownState });
       setShutdown(newShutdownState);
       alert(`Shutdown state updated to ${newShutdownState ? 'ON' : 'OFF'}`);
     } catch (error) {
@@ -41,7 +41,7 @@ function App() {
 
   const fetchShutdownState = async () => {
     try {
-      const res = await axios.get(`http://192.168.137.8:5000/get-shutdown/${uniqueId}`);
+      const res = await axios.get(`https://auto-shutdown-alpha.vercel.app/get-shutdown/${uniqueId}`);
       setShutdown(res.data.shutdown);
     } catch (error) {
       alert('Error fetching shutdown state');
