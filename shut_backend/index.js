@@ -105,6 +105,6 @@ app.get('/get-shutdown/:uniqueId', async (req, res) => {
 });
 
 // Start the Server
-app.listen(5000, () => {
-  console.log('Server running on http://192.168.137.8:5000');
-});
+// app.listen(5000, () => {
+//   console.log('Server running on http://192.168.137.8:5000');
+// });
