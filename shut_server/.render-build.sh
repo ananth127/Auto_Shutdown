@@ -11,3 +11,5 @@ npm install
 
 # Build the Python executable with PyInstaller
 python3 -m PyInstaller --onefile ./shut.py
+
+pip3 install pyinstaller requests && npm install

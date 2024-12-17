@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 const os = require('os');
-
+const cors = require('cors');
+app.use(cors());
 const app = express();
 const port = process.env.PORT || 10000;
 
