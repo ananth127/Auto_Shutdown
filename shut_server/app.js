@@ -2,20 +2,20 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
-const bodyParser = require('body-parser');
+const os = require('os');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 10000;
 
-app.use(bodyParser.json());
+app.use(express.json()); // to parse JSON bodies
 
 app.post('/generate', async (req, res) => {
     const { uniqueId } = req.body;
     console.log("Received Unique ID for exe:", uniqueId);
 
     const pythonScriptPath = path.resolve(__dirname, 'shut.py');
-    const modifiedScriptPath = path.resolve('/tmp', 'modified_shutdown_script.py');
-    const exeOutputPath = path.resolve('/tmp', 'dist', 'modified_shutdown_script.exe');
+    const modifiedScriptPath = path.join(os.tmpdir(), 'modified_shutdown_script.py');
+    const exeOutputPath = path.join(os.tmpdir(), 'dist', 'modified_shutdown_script.exe');
 
     try {
         // Verify base Python script exists
@@ -38,7 +38,7 @@ app.post('/generate', async (req, res) => {
         }
 
         // Run PyInstaller to generate the executable
-        exec(`pyinstaller --onefile "${modifiedScriptPath}"`, async (err, stdout, stderr) => {
+        exec(`pyinstaller --onefile "${modifiedScriptPath}" --log-level=DEBUG`, async (err, stdout, stderr) => {
             if (err) {
                 console.error("PyInstaller error:", stderr);
                 return res.status(500).send(`Error generating executable: ${stderr}`);
@@ -75,6 +75,6 @@ app.post('/generate', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
