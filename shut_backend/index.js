@@ -117,8 +117,11 @@ app.post('/generate', async (req, res) => {
 
 
 
+
   
-const pythonScriptPath = path.resolve(__dirname, 'shut.py');
+
+    const pythonScriptPath = path.resolve(__dirname, 'shut.py');
+
     const modifiedScriptPath = path.resolve(__dirname, 'modified_shutdown_script.py');
     const exeOutputPath = path.resolve(__dirname, 'dist', 'modified_shutdown_script.exe');
 
