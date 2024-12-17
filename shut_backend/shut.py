@@ -3,7 +3,7 @@ import platform
 import requests
 import time
 
-NODE_API_URL = 'http://localhost:5000/get-shutdown'
+NODE_API_URL = 'https://auto-shutdown-alpha.vercel.app/get-shutdown'
 
 def check_shutdown(unique_id):
     print(f"Listening for shutdown state for user: {unique_id}")
@@ -34,5 +34,5 @@ def check_shutdown(unique_id):
 
 if __name__ == '__main__':
     # Replace "chang the value" with the actual unique user ID
-    unique_id = 'USER_ID_PLACEHOLDER'
+    unique_id = 'ce169a3e-b12a-4ef3-8cac-b3223693eaa3'
     check_shutdown(unique_id)
