@@ -122,8 +122,8 @@ app.post('/generate', async (req, res) => {
 
     const pythonScriptPath = path.resolve(__dirname, 'shut.py');
 
-    const modifiedScriptPath = path.resolve(__dirname, 'modified_shutdown_script.py');
-    const exeOutputPath = path.resolve(__dirname, 'dist', 'modified_shutdown_script.exe');
+    const modifiedScriptPath = path.resolve(__dirname, '/tmp/modified_shutdown_script.py');
+    const exeOutputPath = path.resolve(__dirname, '/tmp/dist', 'modified_shutdown_script.exe');
 
     try {
         // Verify base Python script exists
