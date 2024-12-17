@@ -4,10 +4,10 @@ const path = require('path');
 const { exec } = require('child_process');
 const os = require('os');
 const cors = require('cors');
-app.use(cors());
 const app = express();
 const port = process.env.PORT || 10000;
 
+app.use(cors());
 app.use(express.json()); // to parse JSON bodies
 
 app.post('/generate', async (req, res) => {
