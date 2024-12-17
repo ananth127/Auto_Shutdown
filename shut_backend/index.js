@@ -115,7 +115,7 @@ app.post('/generate', async (req, res) => {
     const { uniqueId } = req.body;
     console.log("Received Unique ID for exe:", uniqueId);
 
-    const pythonScriptPath = path.resolve('E:/placement/react project/pc shutdown/version 1/shut_backend/shut.py');
+    const pythonScriptPath = path.resolve('https://github.com/ananth127/Auto_Shutdown/blob/main/shut.py');
     const modifiedScriptPath = path.resolve(__dirname, 'modified_shutdown_script.py');
     const exeOutputPath = path.resolve(__dirname, 'dist', 'modified_shutdown_script.exe');
 
