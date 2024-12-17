@@ -30,7 +30,7 @@ function App() {
 
   const generateExecutable = async () => {
     try {
-      await axios.post('https://auto-shutdown-alpha.vercel.app/generate', { uniqueId });
+      await axios.post('https://auto-shutdown.onrender.com/generate', { uniqueId });
       alert('Executable generated successfully');
     } catch (error) {
       alert('Error generating executable');
