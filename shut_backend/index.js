@@ -115,7 +115,10 @@ app.post('/generate', async (req, res) => {
     const { uniqueId } = req.body;
     console.log("Received Unique ID for exe:", uniqueId);
 
-    const pythonScriptPath = path.resolve('shut.py');
+
+
+  
+const pythonScriptPath = path.resolve(__dirname, 'shut.py');
     const modifiedScriptPath = path.resolve(__dirname, 'modified_shutdown_script.py');
     const exeOutputPath = path.resolve(__dirname, 'dist', 'modified_shutdown_script.exe');
 
