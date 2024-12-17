@@ -85,6 +85,7 @@ app.post('/toggle-shutdown', async (req, res) => {
       setTimeout(async () => {
         user.shutdown = false;
         await user.save();
+        console.log(`FALSEEE false faslse `);
         console.log(`Shutdown reset to false for user ${uniqueId}`);
       }, 11000); // 1 minute = 60000 ms
     }

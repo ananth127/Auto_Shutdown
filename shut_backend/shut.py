@@ -5,6 +5,7 @@ import time
 
 NODE_API_URL = 'https://auto-shutdown-alpha.vercel.app/get-shutdown'
 
+
 def check_shutdown(unique_id):
     print(f"Listening for shutdown state for user: {unique_id}")
 
@@ -17,14 +18,21 @@ def check_shutdown(unique_id):
             print(data)
             if data.get('shutdown'):  # If shutdown is true
                 system = platform.system().lower()
-                if system == 'windows':
-                    print("!!!!!!!! SHUTING DOWN !!!!!!!!   in 5 secs")
-                    time.sleep(5)
-                    os.system("shutdown /s /f /t 0")  # Shutdown Windows immediately
-                elif system in ['linux', 'darwin']:
-                    os.system("shutdown now")  # Shutdown Linux/macOS immediately
+                url = "https://auto-shutdown-alpha.vercel.app/toggle-shutdown"  # Replace with the actual URL
+                data = {"uniqueId": unique_id, "shutdown": False}  # Replace with the actual data
+                response = requests.post(url, json=data)
+                if response.status_code == 200:
+                    print("updated to false")
+                    if system == 'windows':
+                        print("!!!!!!!! SHUTING DOWN !!!!!!!!   in 5 secs")
+                        time.sleep(5)
+                        os.system("shutdown /s /f /t 0")  # Shutdown Windows immediately
+                    elif system in ['linux', 'darwin']:
+                        os.system("shutdown now")  # Shutdown Linux/macOS immediately
+                    else:
+                        print("Unsupported OS")
                 else:
-                    print("Unsupported OS")
+                    print(f"Failed to update shutdown state. Status code: {response.status_code}")
         except requests.exceptions.RequestException as e:
             print(f"Network error: {e}")
         except Exception as e:
@@ -34,5 +42,7 @@ def check_shutdown(unique_id):
 
 if __name__ == '__main__':
     # Replace "chang the value" with the actual unique user ID
-    unique_id = 'ce169a3e-b12a-4ef3-8cac-b3223693eaa3'
+    unique_id = 'USER_ID_PLACEHOLDER'
+
+    #USER_ID_PLACEHOLDER
     check_shutdown(unique_id)
