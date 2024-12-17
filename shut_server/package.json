@@ -1,0 +1,13 @@
+{
+  "name": "auto-shutdown",
+  "version": "1.0.0",
+  "description": "A server to generate customized shutdown scripts.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2"
+  }
+}
